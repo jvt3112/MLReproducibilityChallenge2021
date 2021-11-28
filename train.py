@@ -1,4 +1,6 @@
 import argparse
+
+from matplotlib import use
 import torch
 import torch.utils.data
 from torch.optim import SGD
@@ -64,15 +66,16 @@ for j in range(epoch):
         loss.backward()
         optimizer.step()
         trainLoss += loss.item()
-
+        if(i> 391*userOpt.training_size):
+            break
         if i % 50 == 0:
             print('Epoch:', j , 'Data:', i)
             # print(prec1)
-    print("Epoch:", j, "Loss",trainLoss/len(trainLoader))
+    print("Epoch:", j, "Loss",trainLoss*userOpt.training_size/len(trainLoader))
 
 print('Model Training done...')
 # storing model
-PATH = './ResnetParamStore_'+ str(userOpt.depth) + '_' + str(userOpt.width) + '.pth'
+PATH = './ResnetParamStore_'+ str(userOpt.depth) + '_' + str(userOpt.width) + '_' + str(userOpt.training_size) + '.pth'
 torch.save(params, PATH)
 
 print('Model Params stored')

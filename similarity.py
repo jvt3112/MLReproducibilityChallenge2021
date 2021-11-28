@@ -49,7 +49,7 @@ print("CKA score calculated...")
 # plotting figures 
 plt.figure(figsize=(5, 5),dpi=50)
 axes = plt.imshow(sim, cmap='magma', vmin=0.0,vmax=1.0)
-nameTitle = "ResNet-"+userOpt.depth+" "+userOpt.width+"x"
+nameTitle = "ResNet-"+str(userOpt.depth)+" "+str(userOpt.width)+"x"
 plt.title(nameTitle)
 plt.xlabel("Layer")
 plt.ylabel("Layer")

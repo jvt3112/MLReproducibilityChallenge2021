@@ -54,6 +54,6 @@ plt.title(nameTitle)
 plt.xlabel("Layer")
 plt.ylabel("Layer")
 axes.axes.invert_yaxis()
-pathSaveFigName = "./ResNet-"+userOpt.depth+" "+userOpt.width+"x_comparison.png"
+pathSaveFigName = "./ResNet-"+str(userOpt.depth)+" "+str(userOpt.width)+"x_comparison.png"
 plt.savefig(pathSaveFigName, dpi=400)
 

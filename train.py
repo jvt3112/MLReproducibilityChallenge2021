@@ -72,7 +72,7 @@ for j in range(epoch):
 
 print('Model Training done...')
 # storing model
-PATH = './ResnetParamStore_'+ userOpt.depth + '_' + userOpt.width + '.pth'
+PATH = './ResnetParamStore_'+ str(userOpt.depth) + '_' + str(userOpt.width) + '.pth'
 torch.save(params, PATH)
 
 print('Model Params stored')

@@ -13,7 +13,7 @@ from resnet import createResnetArchitecture
 cudnn.benchmark = True
 parser = argparse.ArgumentParser(description='Custom ResNet Architecture')
 parser.add_argument('--depth', default=14, type=int)
-parser.add_argument('--width', default=1, type=float)
+parser.add_argument('--width', default=1, type=int)
 parser.add_argument('--dataset', default='CIFAR10', type=str)
 parser.add_argument('--dataroot', default='.', type=str)
 parser.add_argument('--dtype', default='float', type=str)
@@ -51,7 +51,7 @@ epoch = userOpt.epochs
 # training loop
 for j in range(epoch):
     trainLoss = 0
-    for i, (input, target) in enumerate((trainLoader)/userOpt.training_size):
+    for i, (input, target) in enumerate(trainLoader):
         target = target.cuda()
         input_var = input.cuda()
         target_var = target
@@ -68,7 +68,7 @@ for j in range(epoch):
         if i % 50 == 0:
             print('Epoch:', j , 'Data:', i)
             # print(prec1)
-    print("Epoch:", j, "Loss",trainLoss/len(trainLoader)/userOpt.training_size)
+    print("Epoch:", j, "Loss",trainLoss/len(trainLoader))
 
 print('Model Training done...')
 # storing model

@@ -83,9 +83,10 @@ def compareActivation(storedValArr, userOpt):
         userOpt ([type]): [description]
 
     """
-    finalArr = np.zeros(shape=(userOpt.depth-1, userOpt.depth-1))
-    for i in range(userOpt.depth-1):
-        for j in range(userOpt.depth-1):
+    print(len(storedValArr))
+    finalArr = np.zeros(shape=(len(storedValArr), len(storedValArr)))
+    for i in range(len(storedValArr)):
+        for j in range(len(storedValArr)):
             ckaScore = calculatingCKAScore(storedValArr[i].detach().cpu().numpy(), storedValArr[j].detach().cpu().numpy())
             finalArr[i, j] = ckaScore 
     return finalArr

@@ -1,4 +1,5 @@
 import numpy as np
+import tqdm
 
 def unbiasedMetricHSIC(KMatrix, LMatrix):
     """Computes an unbiased estimator of HISC. 
@@ -83,10 +84,22 @@ def compareActivation(storedValArr, userOpt):
         userOpt ([type]): [description]
 
     """
+    # print(len(storedValArr))
+    # finalArr = np.zeros(shape=(len(storedValArr), len(storedValArr)))
+    # for i in range(len(storedValArr)):
+    #     for j in range(len(storedValArr)):
+    #         ckaScore = calculatingCKAScore(storedValArr[i].detach().cpu().numpy(), storedValArr[j].detach().cpu().numpy())
+    #         finalArr[i, j] = ckaScore 
+    # return finalArr
     print(len(storedValArr))
-    finalArr = np.zeros(shape=(len(storedValArr), len(storedValArr)))
-    for i in range(len(storedValArr)):
-        for j in range(len(storedValArr)):
-            ckaScore = calculatingCKAScore(storedValArr[i].detach().cpu().numpy(), storedValArr[j].detach().cpu().numpy())
-            finalArr[i, j] = ckaScore 
-    return finalArr
+    result_array = np.zeros(shape=(len(storedValArr), len(storedValArr)))
+    i = 0
+    for outputA in tqdm.tqdm_notebook(storedValArr):
+        j = 0
+        for outputB in tqdm.tqdm_notebook(storedValArr):
+            cka_score = calculatingCKAScore(outputA, outputB)
+            result_array[i, j] = cka_score
+            j+=1
+        i+= 1
+
+    return result_array

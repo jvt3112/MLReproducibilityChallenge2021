@@ -103,3 +103,27 @@ def compareActivation(storedValArr, userOpt):
         i+= 1
 
     return result_array
+
+def miniBatchCKA(storedValArr1):
+    numeratorInCKA = 0 
+    denominator1InCKA = 0
+    denominator2InCKA = 0 
+    for ji in range(len(storedValArr1)):
+        storedValArr = storedValArr1[ji]
+        finalArr = np.zeros(shape=(len(storedValArr), len(storedValArr)))
+        for i in range(len(storedValArr)):
+            for j in range(len(storedValArr)):
+                activationAMatrix = storedValArr[i].detach().cpu().numpy()
+                activationBMatrix = storedValArr[j].detach().cpu().numpy()
+                shapeAMatrix = activationAMatrix.shape 
+                XMatrix = np.reshape(activationAMatrix, newshape=(shapeAMatrix[0], np.prod(shapeAMatrix[1:])))
+                shapeBMatrix = activationBMatrix.shape
+                YMatrix = np.reshape(activationBMatrix, newshape=(shapeBMatrix[0], np.prod(shapeBMatrix[1:])))
+                numeratorInCKA + unbiasedMetricHSIC(np.dot(XMatrix, XMatrix.T), np.dot(YMatrix, YMatrix.T))
+                denominator1InCKA += unbiasedMetricHSIC(np.dot(XMatrix, XMatrix.T), np.dot(XMatrix, XMatrix.T))
+                denominator2InCKA += unbiasedMetricHSIC(np.dot(YMatrix, YMatrix.T), np.dot(YMatrix, YMatrix.T))
+                
+                
+        finalArr[i, j] += numeratorInCKA / np.sqrt(denominator1InCKA*denominator2InCKA)
+    return finalArr
+        

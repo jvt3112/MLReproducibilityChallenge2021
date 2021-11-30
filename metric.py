@@ -112,6 +112,7 @@ def miniBatchCKA(storedValArr1):
         storedValArr = storedValArr1[ji]
         finalArr = np.zeros(shape=(len(storedValArr), len(storedValArr)))
         for i in range(len(storedValArr)):
+            print(ji, i)
             for j in range(len(storedValArr)):
                 activationAMatrix = storedValArr[i].detach().cpu().numpy()
                 activationBMatrix = storedValArr[j].detach().cpu().numpy()

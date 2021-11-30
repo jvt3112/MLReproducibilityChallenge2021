@@ -17,6 +17,7 @@ parser.add_argument('--depth', default=26, type=int)
 parser.add_argument('--width', default=1, type=int)
 parser.add_argument('--batch_size', default=128, type=int)
 parser.add_argument('--training_size', default=1, type=float)
+parser.add_argument('--kMini', default=1, type=float)
 userOpt = parser.parse_args()
 
 # creating testLoader
@@ -39,14 +40,14 @@ for i,batch in enumerate(testLoader):
 
 print("Storing the internal representation for batch...")
 myArray = []
-for j in range(kMinibacthes):
+for j in range(userOpt.kMini):
     out, storeComputations = model(dataMy[j], params=params, mode=True)
     myArray.append(storeComputations)
 
 print("Computations stored")
 
 print("Comparing activations...")
-sim = miniBatchCKA(storeComputations)
+sim = miniBatchCKA(myArray)
 
 print("CKA score calculated...")
 

@@ -97,7 +97,7 @@ def compareActivation(storedValArr, userOpt):
     for outputA in tqdm.tqdm_notebook(storedValArr):
         j = 0
         for outputB in tqdm.tqdm_notebook(storedValArr):
-            cka_score = calculatingCKAScore(outputA, outputB)
+            cka_score = calculatingCKAScore(outputA.detach().cpu().numpy(), outputB.detach().cpu().numpy())
             result_array[i, j] = cka_score
             j+=1
         i+= 1

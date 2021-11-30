@@ -17,7 +17,7 @@ parser.add_argument('--depth', default=26, type=int)
 parser.add_argument('--width', default=1, type=int)
 parser.add_argument('--batch_size', default=128, type=int)
 parser.add_argument('--training_size', default=1, type=float)
-parser.add_argument('--kMini', default=1, type=float)
+parser.add_argument('--kMini', default=1, type=int)
 userOpt = parser.parse_args()
 
 # creating testLoader

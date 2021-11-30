@@ -2,7 +2,7 @@ import torch
 import argparse
 from dataset import createTrainLoader
 from resnet import createResnetArchitecture
-from metric import compareActivation, miniBatchCKA
+from metric import compareActivation
 import matplotlib.pyplot as plt
 
 """
@@ -32,22 +32,19 @@ params = torch.load(userOpt.datapath)
 print("Parameters Loaded...")
 
 # loading the test data -- we are taking only one batch due to limited computational resources
-dataMy = []
 for i,batch in enumerate(testLoader):
   data, target = batch
-  data = data.cuda() 
-  dataMy.append(data)
+  data = data.cuda()
+  break 
 
 print("Storing the internal representation for batch...")
-myArray = []
-for j in range(userOpt.kMini):
-    out, storeComputations = model(dataMy[j], params=params, mode=True)
-    myArray.append(storeComputations)
+
+out, storeComputations = model(data, params=params, mode=True)
 
 print("Computations stored")
 
 print("Comparing activations...")
-sim = miniBatchCKA(myArray)
+sim = compareActivation(storeComputations)
 
 print("CKA score calculated...")
 

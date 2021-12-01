@@ -44,7 +44,7 @@ out, storeComputations = model(data, params=params, mode=True)
 print("Computations stored")
 
 print("Comparing activations...")
-sim = compareActivation(storeComputations)
+sim = compareActivation(storeComputations, userOpt)
 
 print("CKA score calculated...")
 
